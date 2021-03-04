@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.CarOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.example.pojo.CarOrder" >
+    <id column="suri_num" property="suriNum" jdbcType="INTEGER" />
+    <result column="cust_id" property="custId" jdbcType="INTEGER" />
+    <result column="cust_name" property="custName" jdbcType="VARCHAR" />
+    <result column="cust_phone" property="custPhone" jdbcType="VARCHAR" />
+    <result column="rent_day" property="rentDay" jdbcType="TIMESTAMP" />
+    <result column="return_day" property="returnDay" jdbcType="TIMESTAMP" />
+    <result column="car_type" property="carType" jdbcType="VARCHAR" />
+    <result column="car_id" property="carId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    suri_num, cust_id, cust_name, cust_phone, rent_day, return_day, car_type, car_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from car_order
+    where suri_num = #{suriNum,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from car_order
+    where suri_num = #{suriNum,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.pojo.CarOrder" >
+    insert into car_order (suri_num, cust_id, cust_name,
+    cust_phone, rent_day, return_day,
+    car_type, car_id)
+    values (#{suriNum,jdbcType=INTEGER}, #{custId,jdbcType=INTEGER}, #{custName,jdbcType=VARCHAR},
+    #{custPhone,jdbcType=VARCHAR}, #{rentDay,jdbcType=TIMESTAMP}, #{returnDay,jdbcType=TIMESTAMP},
+    #{carType,jdbcType=VARCHAR}, #{carId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.pojo.CarOrder" >
+    insert into car_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="suriNum != null" >
+        suri_num,
+      </if>
+      <if test="custId != null" >
+        cust_id,
+      </if>
+      <if test="custName != null" >
+        cust_name,
+      </if>
+      <if test="custPhone != null" >
+        cust_phone,
+      </if>
+      <if test="rentDay != null" >
+        rent_day,
+      </if>
+      <if test="returnDay != null" >
+        return_day,
+      </if>
+      <if test="carType != null" >
+        car_type,
+      </if>
+      <if test="carId != null" >
+        car_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="suriNum != null" >
+        #{suriNum,jdbcType=INTEGER},
+      </if>
+      <if test="custId != null" >
+        #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPhone != null" >
+        #{custPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="rentDay != null" >
+        #{rentDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnDay != null" >
+        #{returnDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carType != null" >
+        #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="carId != null" >
+        #{carId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.pojo.CarOrder" >
+    update car_order
+    <set >
+      <if test="custId != null" >
+        cust_id = #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="custName != null" >
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPhone != null" >
+        cust_phone = #{custPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="rentDay != null" >
+        rent_day = #{rentDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnDay != null" >
+        return_day = #{returnDay,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carType != null" >
+        car_type = #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="carId != null" >
+        car_id = #{carId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where suri_num = #{suriNum,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.pojo.CarOrder" >
+    update car_order
+    set cust_id = #{custId,jdbcType=INTEGER},
+    cust_name = #{custName,jdbcType=VARCHAR},
+    cust_phone = #{custPhone,jdbcType=VARCHAR},
+    rent_day = #{rentDay,jdbcType=TIMESTAMP},
+    return_day = #{returnDay,jdbcType=TIMESTAMP},
+    car_type = #{carType,jdbcType=VARCHAR},
+    car_id = #{carId,jdbcType=VARCHAR}
+    where suri_num = #{suriNum,jdbcType=INTEGER}
+  </update>
+
+  <select id="sel" resultType="java.util.Map">
+    select co.suri_num '订单编号',c.car_id '车牌号码',c.rent_money '每日租金' from car_order co,car c where co.car_id = c.car_id and co.car_type = co.car_type order by suri_num desc limit 1
+  </select>
+
+  <select id="getOrderList" resultType="java.util.Map">
+    select suri_num '订单编号',cust_id '客户id',cust_name '客户名称',cust_phone '客户电话',DATE_FORMAT(rent_day,'%Y-%m-%d %H:%i:%s') '起租日期',car_type '汽车型号',car_id '车牌号码' from car_order WHERE cust_id = #{id}
+  </select>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.CarMapper" >
+  <resultMap id="BaseResultMap" type="com.example.pojo.Car" >
+    <result column="car_type" property="carType" jdbcType="VARCHAR" />
+    <result column="car_id" property="carId" jdbcType="VARCHAR" />
+    <result column="rent_money" property="rentMoney" jdbcType="DECIMAL" />
+    <result column="is_use" property="isUse" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.example.pojo.Car" >
+    insert into car (car_type, car_id, rent_money, 
+      is_use)
+    values (#{carType,jdbcType=VARCHAR}, #{carId,jdbcType=VARCHAR}, #{rentMoney,jdbcType=DECIMAL}, 
+      #{isUse,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.pojo.Car" >
+    insert into car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carType != null" >
+        car_type,
+      </if>
+      <if test="carId != null" >
+        car_id,
+      </if>
+      <if test="rentMoney != null" >
+        rent_money,
+      </if>
+      <if test="isUse != null" >
+        is_use,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carType != null" >
+        #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="carId != null" >
+        #{carId,jdbcType=VARCHAR},
+      </if>
+      <if test="rentMoney != null" >
+        #{rentMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="sel" resultMap="BaseResultMap">
+    select * from car where car_type = #{code} and is_use = 0 limit 1
+  </select>
+
+  <update id="updateStatus">
+    update car set is_use = #{isUse} where car_type = #{carType} AND car_id = #{carId}
+  </update>
+
+  <select id="sel1" resultMap="BaseResultMap">
+    select * from car where car_type = #{carType} AND car_id = #{carId}
+  </select>
+</mapper>
