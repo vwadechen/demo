@@ -29,7 +29,8 @@ Api address: http://119.29.56.35:8080/car/save
 | rentMoney         | BigDecimal     | Daily rent           |
 
 **example**
-```{
+```
+    {
     "carType": "Toyota Camry",
     "custName": "test1",
     "custId": "1234",
@@ -92,7 +93,8 @@ Api address: http://119.29.56.35:8080/car/order/returnOrder
 | totalMoney        | BigDecimal     | Total Money  |
 
 **example**
-```{
+```
+    {
     "suriNum": "3",
     "custId": "1234",
     "returnDay": "2020-03-05"
