@@ -16,8 +16,8 @@ public class CarServiceImpl implements CarService{
     }
 
     @Override
-    public int updateStatus(Car car) {
-        return carMapper.updateStatus(car);
+    public void updateStatus(Car car) {
+        carMapper.updateStatus(car);
     }
 
     @Override
