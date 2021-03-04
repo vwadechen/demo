@@ -6,7 +6,7 @@
 
 Request type: post
 
-Api address: 
+Api address: http://119.29.56.35:8080/car/save
 
 **Input**
 
@@ -28,13 +28,20 @@ Api address:
 | carId             | String         | License plate number |
 | rentMoney         | BigDecimal     | Daily rent           |
 
-
+**example**
+    {
+    "carType": "Toyota Camry",
+    "custName": "test1",
+    "custId": "1234",
+    "custPhone": "10086",
+    "rentDay": "2021-03-01"
+    }
 
 ## Order query interface
 
 Request type: get
 
-Api address: 
+Api address: http://119.29.56.35:8080/car/order/getOrderList
 
 **Input**
 
@@ -64,7 +71,7 @@ Api address:
 
 Request type: post
 
-Api address: 
+Api address: http://119.29.56.35:8080/car/order/returnOrder
 
 **Input**
 
@@ -83,3 +90,9 @@ Api address:
 | suriNum           | Integer        | Order number |
 | totalMoney        | BigDecimal     | Total Money  |
 
+**example**
+    {
+    "suriNum": "3",
+    "custId": "1234",
+    "returnDay": "2020-03-05"
+    }
