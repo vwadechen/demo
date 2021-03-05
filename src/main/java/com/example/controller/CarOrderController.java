@@ -58,8 +58,8 @@ public class CarOrderController {
         BigDecimal money = new BigDecimal(car1.getRentMoney().toString()).multiply(new BigDecimal(betweenDays)).setScale(2);
 
         Map map = new HashMap();
-        map.put("订单编号",carOrder.getSuriNum());
-        map.put("总金额",money);
+        map.put("suriNum",carOrder.getSuriNum());
+        map.put("totalMoney",money);
         return map;
     }
 }

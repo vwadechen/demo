@@ -127,10 +127,10 @@
   </update>
 
   <select id="sel" resultType="java.util.Map">
-    select co.suri_num '订单编号',c.car_id '车牌号码',c.rent_money '每日租金' from car_order co,car c where co.car_id = c.car_id and co.car_type = co.car_type order by suri_num desc limit 1
+    select co.suri_num 'suriNum',c.car_id 'carId',c.rent_money 'rentMoney' from car_order co,car c where co.car_id = c.car_id and co.car_type = co.car_type order by suri_num desc limit 1
   </select>
 
   <select id="getOrderList" resultType="java.util.Map">
-    select suri_num '订单编号',cust_id '客户id',cust_name '客户名称',cust_phone '客户电话',DATE_FORMAT(rent_day,'%Y-%m-%d %H:%i:%s') '起租日期',car_type '汽车型号',car_id '车牌号码' from car_order WHERE cust_id = #{id}
+    select suri_num 'suriNum',cust_id 'custId',cust_name 'custName',cust_phone 'custPhone',DATE_FORMAT(rent_day,'%Y-%m-%d %H:%i:%s') 'rentDay',car_type 'carType',car_id 'carId' from car_order WHERE cust_id = #{id}
   </select>
 </mapper>
